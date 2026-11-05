@@ -1,0 +1,12 @@
+#!/bin/sh
+# Gradle startup script for POSIX systems
+exec gradle "$@" 2>/dev/null || {
+    echo "Using Gradle Wrapper..."
+    CLASSPATH="gradle/wrapper/gradle-wrapper.jar"
+    if [ -f "$CLASSPATH" ]; then
+        java -jar "$CLASSPATH" "$@"
+    else
+        echo "Please install gradle or use Android Studio to build this project."
+        exit 1
+    fi
+}
